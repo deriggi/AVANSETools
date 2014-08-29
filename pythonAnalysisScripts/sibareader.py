@@ -3,6 +3,7 @@ import codecs
 
 
 def incrementCountByOccurrence(counterdict, rowdict, columname):
+	# add to the dictionary so that each cin_nif holds the number of occurences of that cin_nif value
 	keyToCount = rowdict[columname]
 	if keyToCount not in counterdict:
 		counterdict[keyToCount] = 0
@@ -10,6 +11,8 @@ def incrementCountByOccurrence(counterdict, rowdict, columname):
 	counterdict[keyToCount] = counterdict[keyToCount] + 1 
 
 def addOccurrencesToList(collectormap, rowdict, keyname, keytoadd):
+	# add to the dictionary so that each cin_nif has a list of fullnames
+
 	if rowdict[keyname] not in collectormap:
 		collectormap[rowdict[keyname]] = []
 
@@ -18,7 +21,7 @@ def addOccurrencesToList(collectormap, rowdict, keyname, keytoadd):
 		collectormap[rowdict[keyname]].append(rowdict[keytoadd])
 
 def findDuplicates(infile, columnname, counterdict):
-	
+	# load the csv file into a collection of dictionaries
 
 	with codecs.open(infile) as sibacsv:
 		dictreader = csv.DictReader(sibacsv, dialect=csv.excel)
@@ -27,7 +30,7 @@ def findDuplicates(infile, columnname, counterdict):
 			
 
 def collectOccurrences(infile, columnname, collectormap, keytoadd):
-	
+	# load the csv file into a collection of dictionaries
 
 	with codecs.open(infile) as sibacsv:
 		dictreader = csv.DictReader(sibacsv, dialect=csv.excel)
