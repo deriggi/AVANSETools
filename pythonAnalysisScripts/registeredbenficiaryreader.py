@@ -8,6 +8,9 @@
 # count by crop
 # count by crop and commune
 # TODO find duplicates
+# with cin_nif as primary we had 3847 records
+# with locationname as primary we had 4106 records
+# with cinname as primary 745 duplicates for cin 4060 valid
 
 import re
 import codecs, csv
@@ -190,21 +193,65 @@ def readMenage():
 def writeRowsAsCSV(outpath, rows):
 	outRows = open(outpath, 'a')
 	outRows.write(getHeaderLine())
-	menagecinhashes = []	
+	menagecinhashes = []
+	invalidrows = []	
+	countinvalid = 0;
 	for row in rows:
-		hasheesh = row[CHEF_MENAGE] + row[CIN_NIF].strip().replace('-','').replace(' ','')
-		# hasheesh = row[CHEF_MENAGE] + row[PRODUCER_NAME].strip().replace(' ','')
 		
-		if row[CHEF_MENAGE].strip().upper()=='OUI' and hasheesh not in menagecinhashes:
+		hasheesh = hasValidHasheesh(row)
+		print hasheesh
+				
+		if hasheesh != None and row[CHEF_MENAGE].strip().upper() == 'OUI' and hasheesh not in menagecinhashes:
 			line = makeLineFromRow(row)
 			outRows.write(line)
 			menagecinhashes.append(hasheesh)
-		else:
-			print ' found dupe ' 
 
+		elif hasheesh == None:
+			# TODO write these out
+			invalidrows.append(row)
+			countinvalid = countinvalid + 1
+
+	print len(menagecinhashes)
+	print countinvalid
+	writeRows('C:/Users/jderiggi/Documents/AVANSEDb/beneficiary_registration/output/invalidrecords.csv', invalidrows)
 	outRows.close()
 
+def writeRows(outpath, rows):
+	outRows = open(outpath, 'a')
+	outRows.write(getHeaderLine())
+	for row in rows:
+		outRows.write(makeLineFromRow(row))		
+	outRows.close()
 
+def hasValidHasheesh(row):
+	
+	# if len(row[CODE_MENAGE]) > 3 or len(row[CIN_NIF].strip().replace('-','').replace(' ','')) > 5:
+	# 	return True
+
+	if len(row[CIN_NIF].strip().replace('-','').replace(' ','')) > 5:
+		return '_'  + row[CIN_NIF].strip().replace('-','').replace(' ','')
+
+
+	if row[LATITUDE].strip() > 4 and row[LONGITUDE].strip() > 4 and row[PRODUCER_NAME].strip().replace(' ','').upper() > 5:
+		return row[LATITUDE].strip() + row[LONGITUDE].strip() + row[PRODUCER_NAME].strip().replace(' ','').upper()
+
+	if len(row[TELEPHONE].strip().replace('-','').replace(' ','')) > 5 and row[PRODUCER_NAME].strip().replace(' ','').upper() > 5:
+		return '_' + row[TELEPHONE].strip().replace('-','').replace(' ','') + row[PRODUCER_NAME].strip().replace(' ','').upper()
+
+	if len(row[TELEPHONE].strip().replace('-','').replace(' ','')) > 4:
+		return row[TELEPHONE].strip().replace('-','').replace(' ','')
+
+
+	return None
+
+# def makeHasheesh(row):
+# 	# hasheesh = row[CODE_MENAGE] + row[CIN_NIF].strip().replace('-','').replace(' ','')
+# 	hasheesh =  row[CIN_NIF].strip().replace('-','').replace(' ','')
+# 	if len(hasheesh ) < 6:
+
+# 		hasheesh =  row[TELEPHONE].strip().replace('-','').replace(' ','')
+
+# 	return hasheesh
 
 def makeLineFromRow(row):
 	line = row[CODE_MENAGE] 
@@ -215,7 +262,7 @@ def makeLineFromRow(row):
 	line = line + ',' + row[LATITUDE]
 	line = line + ',' + row[LONGITUDE]
 	line = line + ',' + row[PRODUCER_NAME].strip().replace('-','').replace(' ','')
-	line = line + ',' + row[CIN_NIF].strip().replace('-','').replace(' ','')
+	line = line + ',' + '_' + row[CIN_NIF].strip().replace('-','').replace(' ','')
 	line = line + ',' + row[TELEPHONE]
 	line = line + ',' + row[SEX]
 	line = line + ',' + row[CHEF_MENAGE] +  '\n'
