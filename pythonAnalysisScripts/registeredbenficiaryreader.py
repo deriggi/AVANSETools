@@ -187,7 +187,7 @@ def readMenage():
 			fixBadCodes(row)
 			allrows.append(row)
 
-		writeRowsAsCSV('C:/Users/jderiggi/Documents/AVANSEDb/beneficiary_registration/output/cleanedMenage2.csv', allrows)
+		writeRowsAsCSV('C:/Users/jderiggi/Documents/AVANSEDb/beneficiary_registration/output/cleanedMenage3.csv', allrows)
 		
 
 def writeRowsAsCSV(outpath, rows):
@@ -228,9 +228,11 @@ def hasValidHasheesh(row):
 	# if len(row[CODE_MENAGE]) > 3 or len(row[CIN_NIF].strip().replace('-','').replace(' ','')) > 5:
 	# 	return True
 
-	if len(row[CIN_NIF].strip().replace('-','').replace(' ','')) > 5:
-		return '_'  + row[CIN_NIF].strip().replace('-','').replace(' ','')
+	if len(row[CIN_NIF].strip().replace('-','').replace(' ','')) > 5 and row[PRODUCER_NAME].strip().replace(' ','').upper() > 5:
+		return '_'  + row[CIN_NIF].strip().replace('-','').replace(' ','') + row[PRODUCER_NAME].strip().replace(' ','').upper()
 
+	if len(row[CIN_NIF].strip().replace('-','').replace(' ','')) > 5 :
+		return '_'  + row[CIN_NIF].strip().replace('-','').replace(' ','') 	
 
 	if row[LATITUDE].strip() > 4 and row[LONGITUDE].strip() > 4 and row[PRODUCER_NAME].strip().replace(' ','').upper() > 5:
 		return row[LATITUDE].strip() + row[LONGITUDE].strip() + row[PRODUCER_NAME].strip().replace(' ','').upper()
