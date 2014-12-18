@@ -52,21 +52,85 @@ def loadRiverName():
 	return best;
 
 def cleanCommuneRules(commune):
-	rivername = loadRiverName()
-	if commune.rfind('acul') == 0:
-		commune = 'acul du nord'
+	allCommunes =  loadCommuneList()
+	grand = allCommunes[1]
+	troudunord = allCommunes[11]
+	oua = allCommunes[9]
+	aculdunord = allCommunes[6]
+	baslimbe = allCommunes[13]
+	fortliberte = allCommunes[0]
+	grisongarde = allCommunes[19]
+	limbe = allCommunes[14]
+	caracol = allCommunes[15]
+	labrueyere = allCommunes[20]
+	
 
-	elif commune.rfind('ouan') == 0:
-		commune = 'ouanaminthe'
+	if commune.strip().replace(' ','').rfind('ac') == 0:
+		commune = aculdunord
+
+	elif commune.rfind('tro') == 0:
+		commune = troudunord
+
+	elif commune.rfind('fort') == 0:
+		commune = fortliberte
+
+	elif commune.rfind('bas') == 0:
+		commune = baslimbe
+
+	elif commune.rfind('ba-lim') == 0:
+		commune = baslimbe
+
+	elif commune.rfind('cara') == 0:
+		commune = caracol
+
+	elif commune.rfind('oua') == 0:
+		commune = oua
+
+	elif commune.rfind('oun') == 0:
+		commune = oua
+
+	elif commune.rfind('oan') == 0:
+		commune = oua
+
+	elif commune.rfind('labru') == 0:
+		commune = labrueyere
+
+	elif commune.rfind('lim') == 0:
+		commune = limbe
+
+	elif commune.rfind('gris') == 0:
+		commune = grisongarde
+
+	elif commune.rfind('griz') == 0:
+		commune = grisongarde
 
 	elif commune.rfind('grand') == 0:
-		commune = rivername
+		commune = grand
 	
 	elif commune.rfind('grande-r') == 0:
-		commune = rivername
+		commune = grand
+
+	elif commune.rfind('grnde') == 0:
+		commune = grand
 
 	elif commune.rfind('gde-r') == 0:
-		commune = rivername
+		commune = grand
+
+	elif commune.rfind('gde r') == 0:
+		commune = grand
+	
+	elif commune.rfind('gde_r') == 0:
+		commune = grand
+
+
+	elif commune.rfind('g-riv') == 0:
+		commune = grand
+
+	elif commune.rfind('grane') == 0:
+		commune = grand
+
+	elif commune.rfind('grnade') == 0:
+		commune = grand
 		
 
 	return commune
@@ -85,7 +149,13 @@ def cleanDistroList2():
 		dirtydistro.close()
 	
 
-	
+def loadCommuneList():
+	with codecs.open("C:/Users/jderiggi/Documents/AVANSEDb/communesynonyms/allCommunes.csv" , 'r') as csvfile:
+		lines=  csvfile.read().splitlines()
+	csvfile.close()
+	return lines;
+
+
 
 def cleanDistroList():
 	with codecs.open("C:/Users/jderiggi/Documents/AVANSEDb/distributionlist/distribution.csv" , 'r') as csvfile:
@@ -98,6 +168,7 @@ def cleanDistroList():
 			if 'Commune' in row:
 				
 				commune = row['Commune'].lower().strip()
+				# todo fix the other synonym files by saving them with bom
 				# for pair in badVals:
 				# 	if commune == pair[0]:
 				# 		commune = pair[1]
@@ -181,7 +252,6 @@ def loadSynos(syonymsfolder):
 
 # writeValMap(loadSynos('C:/Users/jderiggi/Documents/AVANSEDb/communesynonyms/'))
 
-# cleanDistroList2()
 
 cleanedList = cleanDistroList();
 writeCsv('C:/Users/jderiggi/Documents/AVANSEDb/output/distroout.csv', cleanedList)
