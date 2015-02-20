@@ -9,4 +9,4 @@ These maps were developed by HAITI AVANSE's GIS Team: Emmanuel Pierre and Dawine
 
 
 ## Sample Zones
-![zones prélèvement] (/maps/zones_prelevement_sols_IR1/zones_prelevement_sols_IR1.jpg)
+![zones prélèvement] (/maps/zones_prelevement_sols_IR1/zones_prelevement_sols_IR1_LT_150212.jpg)
