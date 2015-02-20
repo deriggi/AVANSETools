@@ -4,5 +4,9 @@ These maps were developed by HAITI AVANSE's GIS Team: Emmanuel Pierre and Dawine
 ## Project Area
 ![PROJECT AREA](maps/project_zone/projectarea.png)
 
-##  System pumps
+##  System Pumps
 ![LOCALISATION SYSTEM] (/maps/localisation_systeme_pompage/localisation_systeme_pompage.jpg)
+
+
+## Sample Zones
+![zones prélèvement] (/maps/zones_prelevement_sols_IR1/zones_prelevement_sols_IR1.jpg)
