@@ -4,6 +4,9 @@ These maps were developed by HAITI AVANSE's GIS Team: Emmanuel Pierre and Dawine
 ## Project Area
 ![PROJECT AREA](maps/project_zone/projectarea.png)
 
+## Land Cover Map from the Programmatic Environmental Assessment
+![PROJECT AREA](maps/landcover/StudyAreaLandCover.png)
+
 ##  System Pumps
 ![LOCALISATION SYSTEM] (/maps/localisation_systeme_pompage/localisation_systeme_pompage.jpg)
 
