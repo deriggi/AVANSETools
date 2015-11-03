@@ -5,7 +5,7 @@ Initially we will work towards attaching parcel boundaries to farmers
 ## HTTP requests
 
 ```R
-GET("http://google.com/")
+GET("AvanseIndicators/v1/geo/checkid/45")
 ```
 
 
