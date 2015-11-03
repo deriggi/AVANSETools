@@ -3,9 +3,10 @@ The goal of this document is to design and document the integration of an R clie
 Initially we will work towards attaching parcel boundaries to farmers
 
 ## HTTP requests
+The first step is to establish simple communication with the server. A url was created for the purpose of testing to see if the R client can reach the server
 
 ```R
-GET("AvanseIndicators/v1/geo/checkid/45")
+GET("<server path in email>/v1/geo/checkid/45")
 ```
 
 
